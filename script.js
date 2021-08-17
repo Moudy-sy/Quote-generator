@@ -9,14 +9,14 @@ let apiQuotes = [];
 
 //  Show Loading
 function loading() {
-    loader.hidden = fales;
+    loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
 
 // Hide Loading
 function complete() {
-    quoteContainer.hidden = fales;
+    quoteContainer.hidden = false;
     loader.hidden = true;
 }
 
