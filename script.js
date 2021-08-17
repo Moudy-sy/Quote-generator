@@ -1,45 +1,40 @@
-const newContainer = document.getElementById("quote-container");
-const quoteText = document.getElementById("quote");
-const authorText = document.getElementById("author");
-const twitterBtn = document.getElementById("twitter");
-const newQuoteBtn = document.getElementById("new-qoute");
-const loader = document.getElementById("loader");
+const quoteContainer = document.getElementById('quote-container');
+const quoteText = document.getElementById('quote');
+const authorText = document.getElementById('author');
+const twitterBtn = document.getElementById('twitter');
+const newQuoteBtn = document.getElementById('new-quote');
+const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
-//  Show Loading
+// Loading Spinner Shown
 function loading() {
   loader.hidden = false;
-  newContainer.hidden = true;
+  quoteContainer.hidden = true;
 }
 
-// Hide Loading
+// Remove Loading Spinner
 function complete() {
-  newContainer.hidden = false;
+  quoteContainer.hidden = false;
   loader.hidden = true;
 }
 
 // Show New Quote
-getQuotes();
 function newQuote() {
   loading();
-  // Pick a rndom quote from apiQuotes array
-  //   getQuotes();
-
-  const quote =
-    apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
-  // Check if author field is blank and replace it with 'Unknowe'
-  console.log(quote);
+  // Pick a random quote from array
+  const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
+  // Check if Author field is blank and replace it with 'Unknown'
   if (!quote.author) {
-    authorText.textContent = "Unknow";
+    authorText.textContent = 'Unknown';
   } else {
     authorText.textContent = quote.author;
   }
-  // Check Quote length to determain styiling
+  // Check Quote length to determine styling
   if (quote.text.length > 120) {
-    quoteText.classList.add("long-quote");
+    quoteText.classList.add('long-quote');
   } else {
-    quoteText.classList.remove("long-quote");
+    quoteText.classList.remove('long-quote');
   }
   // Set Quote, Hide Loader
   quoteText.textContent = quote.text;
@@ -49,7 +44,7 @@ function newQuote() {
 // Get Quotes From API
 async function getQuotes() {
   loading();
-  const apiUrl = "https://type.fit/api/quotes";
+  const apiUrl = 'https://type.fit/api/quotes';
   try {
     const response = await fetch(apiUrl);
     apiQuotes = await response.json();
@@ -61,17 +56,13 @@ async function getQuotes() {
 
 // Tweet Quote
 function tweetQuote() {
-  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
-  window.open(twitterUrl, "_blank");
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.innerText} - ${authorText.innerText}`;
+  window.open(twitterUrl, '_blank');
 }
 
-// Event listerners
-newQuoteBtn.addEventListener("click", newQuote);
-twitterBtn.addEventListener("click", tweetQuote);
+// Event Listeners
+newQuoteBtn.addEventListener('click', newQuote);
+twitterBtn.addEventListener('click', tweetQuote);
 
-// // Loading
-// getQuotes();
-
-newQuote();
-
-// https://twitter.com/intent/tweet
+// On Load
+getQuotes();
